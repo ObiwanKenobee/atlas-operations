@@ -9,8 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WarRoomRouteImport } from './routes/war-room'
+import { Route as TwinsRouteImport } from './routes/twins'
+import { Route as StudioRouteImport } from './routes/studio'
+import { Route as GraphRouteImport } from './routes/graph'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WarRoomRoute = WarRoomRouteImport.update({
+  id: '/war-room',
+  path: '/war-room',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TwinsRoute = TwinsRouteImport.update({
+  id: '/twins',
+  path: '/twins',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioRoute = StudioRouteImport.update({
+  id: '/studio',
+  path: '/studio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GraphRoute = GraphRouteImport.update({
+  id: '/graph',
+  path: '/graph',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +43,72 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/graph': typeof GraphRoute
+  '/studio': typeof StudioRoute
+  '/twins': typeof TwinsRoute
+  '/war-room': typeof WarRoomRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/graph': typeof GraphRoute
+  '/studio': typeof StudioRoute
+  '/twins': typeof TwinsRoute
+  '/war-room': typeof WarRoomRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/graph': typeof GraphRoute
+  '/studio': typeof StudioRoute
+  '/twins': typeof TwinsRoute
+  '/war-room': typeof WarRoomRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/graph' | '/studio' | '/twins' | '/war-room'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/graph' | '/studio' | '/twins' | '/war-room'
+  id: '__root__' | '/' | '/graph' | '/studio' | '/twins' | '/war-room'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GraphRoute: typeof GraphRoute
+  StudioRoute: typeof StudioRoute
+  TwinsRoute: typeof TwinsRoute
+  WarRoomRoute: typeof WarRoomRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/war-room': {
+      id: '/war-room'
+      path: '/war-room'
+      fullPath: '/war-room'
+      preLoaderRoute: typeof WarRoomRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/twins': {
+      id: '/twins'
+      path: '/twins'
+      fullPath: '/twins'
+      preLoaderRoute: typeof TwinsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio': {
+      id: '/studio'
+      path: '/studio'
+      fullPath: '/studio'
+      preLoaderRoute: typeof StudioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/graph': {
+      id: '/graph'
+      path: '/graph'
+      fullPath: '/graph'
+      preLoaderRoute: typeof GraphRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +121,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GraphRoute: GraphRoute,
+  StudioRoute: StudioRoute,
+  TwinsRoute: TwinsRoute,
+  WarRoomRoute: WarRoomRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
