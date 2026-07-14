@@ -53,12 +53,12 @@ Policies: ${data.policies || "none specified"}
 Return strategies that meaningfully differ in approach (e.g. aggressive vs. resilient vs. balanced), not variations of the same idea. Keep tradeoffs concrete (e.g. "Local employment: +2,400 jobs", "Carbon seq: 4.2x baseline"). Keep summary under 240 chars.`;
 
     try {
-      const { experimental_output } = await generateText({
+      const { output } = await generateText({
         model: gateway("google/gemini-3-flash-preview"),
         prompt,
-        experimental_output: Output.object({ schema: StrategySchema }),
+        output: Output.object({ schema: StrategySchema }),
       });
-      return experimental_output;
+      return output;
     } catch (error) {
       if (NoObjectGeneratedError.isInstance(error)) {
         try {

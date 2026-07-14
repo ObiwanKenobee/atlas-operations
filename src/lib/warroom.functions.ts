@@ -44,12 +44,12 @@ QUESTION: "${data.question}"
 Produce 6-8 debate turns showing genuine disagreement, then a consensus with dissent noted. Evidence must cite real sources (IPCC AR6, ESA Sentinel-2, WHO GBD, World Bank data, IEA WEO, etc.). Keep each argument 2-3 sentences.`;
 
     try {
-      const { experimental_output } = await generateText({
+      const { output } = await generateText({
         model: gateway("google/gemini-3-flash-preview"),
         prompt,
-        experimental_output: Output.object({ schema: DebateSchema }),
+        output: Output.object({ schema: DebateSchema }),
       });
-      return experimental_output;
+      return output;
     } catch (error) {
       if (NoObjectGeneratedError.isInstance(error)) {
         try {
